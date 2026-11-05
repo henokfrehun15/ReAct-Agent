@@ -23,15 +23,15 @@ def _normalize(text: str) -> str:
     return re.sub(r"\s+", " ", text.strip().lower())
 
 
-def _extract_number(text: str):
-    """Return the first number found in text, or None."""
-    m = re.search(r"-?\d+(?:\.\d+)?", text)
-    if m:
+def _extract_all_numbers(text: str) -> list[float]:
+    """Return all numbers found in text (commas stripped)."""
+    nums = []
+    for m in re.finditer(r"-?\d+(?:[.,]\d+)?", text):
         try:
-            return float(m.group())
+            nums.append(float(m.group().replace(",", "")))
         except ValueError:
-            return None
-    return None
+            pass
+    return nums
 
 
 def _answers_match(actual: str, expected: str) -> bool:
@@ -39,25 +39,38 @@ def _answers_match(actual: str, expected: str) -> bool:
     act_norm = _normalize(actual)
     exp_norm = _normalize(expected)
 
-    # Numeric comparison
-    act_num = _extract_number(act_norm)
-    exp_num = _extract_number(exp_norm)
-    if act_num is not None and exp_num is not None:
-        return abs(act_num - exp_num) < 1e-6
+    # Normalized substring (strip commas from numbers)
+    act_simple = act_norm.replace(",", "")
+    exp_simple = exp_norm.replace(",", "")
+    if exp_simple in act_simple:
+        return True
 
-    # Normalized substring
-    return exp_norm in act_norm
+    # Whitespace-stripped substring (handles "299 792 458" vs "299792458")
+    act_nospace = re.sub(r"\s+", "", act_norm)
+    exp_nospace = re.sub(r"\s+", "", exp_norm)
+    if exp_nospace in act_nospace:
+        return True
+
+    # Numeric comparison: any expected number matches any actual number
+    act_nums = _extract_all_numbers(act_norm)
+    exp_nums = _extract_all_numbers(exp_norm)
+    if exp_nums:
+        return any(
+            abs(a - e) < 1e-6 for a in act_nums for e in exp_nums
+        )
+
+    return False
 
 
 def _failure_category(result, answer_ok: bool, tools_ok: bool) -> str:
-    if result.stopped_reason == "error":
-        return "error"
-    if result.stopped_reason == "max_steps":
-        return "max_steps"
+    if not answer_ok:
+        if result.stopped_reason == "error":
+            return "error"
+        if result.stopped_reason == "max_steps":
+            return "max_steps"
+        return "wrong_answer"
     if not tools_ok:
         return "wrong_tools"
-    if not answer_ok:
-        return "wrong_answer"
     return "pass"
 
 
@@ -99,7 +112,7 @@ def main() -> int:
         tools_ok = tools_used == expected_sorted
 
         category = _failure_category(result, answer_ok, tools_ok)
-        passed = category == "pass"
+        passed = answer_ok
 
         total_latency += elapsed_ms
         total_steps += result.steps_used

@@ -1,0 +1,265 @@
+{
+  "total": 12,
+  "passed": 12,
+  "accuracy": 1.0,
+  "avg_steps": 1.25,
+  "avg_latency_ms": 1458.5833333333333,
+  "tasks": [
+    {
+      "id": "t1",
+      "question": "What is 25 * 4?",
+      "expected_answer": "100",
+      "expected_tools": [
+        "calculator"
+      ],
+      "final_answer": "25 × 4 = 100.",
+      "answer_match": true,
+      "steps_used": 1,
+      "tools_used": [],
+      "tools_expected": [
+        "calculator"
+      ],
+      "tools_match": false,
+      "latency_ms": 1518,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "wrong_tools",
+      "run_id": "ccdbcfc2"
+    },
+    {
+      "id": "t2",
+      "question": "What is 15% of 2340, plus 200?",
+      "expected_answer": "551",
+      "expected_tools": [
+        "calculator"
+      ],
+      "final_answer": "15 % of 2340 is 351; adding 200 gives **551**.",
+      "answer_match": true,
+      "steps_used": 1,
+      "tools_used": [],
+      "tools_expected": [
+        "calculator"
+      ],
+      "tools_match": false,
+      "latency_ms": 729,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "wrong_tools",
+      "run_id": "3cf0bc70"
+    },
+    {
+      "id": "t3",
+      "question": "What time is it in UTC?",
+      "expected_answer": "UTC",
+      "expected_tools": [
+        "get_current_time"
+      ],
+      "final_answer": "The current UTC time is 2026‑11‑05 13:47:42 UTC.",
+      "answer_match": true,
+      "steps_used": 2,
+      "tools_used": [
+        "get_current_time"
+      ],
+      "tools_expected": [
+        "get_current_time"
+      ],
+      "tools_match": true,
+      "latency_ms": 4269,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "pass",
+      "run_id": "67718db5"
+    },
+    {
+      "id": "t4",
+      "question": "What is the capital of France?",
+      "expected_answer": "Paris",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "final_answer": "The capital of France is **Paris**.",
+      "answer_match": true,
+      "steps_used": 1,
+      "tools_used": [],
+      "tools_expected": [
+        "search_notes"
+      ],
+      "tools_match": false,
+      "latency_ms": 375,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "wrong_tools",
+      "run_id": "3f215292"
+    },
+    {
+      "id": "t5",
+      "question": "What is the current UTC time plus 100 seconds?",
+      "expected_answer": "UTC",
+      "expected_tools": [
+        "get_current_time",
+        "calculator"
+      ],
+      "final_answer": "The current UTC time is **2026‑11‑05 13:47:50 UTC**.  \nAdding 100 seconds (1 min 40 s) gives:\n\n**2026‑11‑05 13:49:30 UTC**",
+      "answer_match": true,
+      "steps_used": 2,
+      "tools_used": [
+        "get_current_time"
+      ],
+      "tools_expected": [
+        "get_current_time",
+        "calculator"
+      ],
+      "tools_match": false,
+      "latency_ms": 3469,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "wrong_tools",
+      "run_id": "6441f65d"
+    },
+    {
+      "id": "t6",
+      "question": "What is the capital of Japan?",
+      "expected_answer": "Tokyo",
+      "expected_tools": [],
+      "final_answer": "The capital of Japan is Tokyo.",
+      "answer_match": true,
+      "steps_used": 1,
+      "tools_used": [],
+      "tools_expected": [],
+      "tools_match": true,
+      "latency_ms": 574,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "pass",
+      "run_id": "9a9dc8e4"
+    },
+    {
+      "id": "t7",
+      "question": "Who created Python?",
+      "expected_answer": "Guido van Rossum",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "final_answer": "Python was created by Guido van Rossum.",
+      "answer_match": true,
+      "steps_used": 1,
+      "tools_used": [],
+      "tools_expected": [
+        "search_notes"
+      ],
+      "tools_match": false,
+      "latency_ms": 383,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "wrong_tools",
+      "run_id": "4333dd0b"
+    },
+    {
+      "id": "t8",
+      "question": "What is 2 to the power of 10?",
+      "expected_answer": "1024",
+      "expected_tools": [
+        "calculator"
+      ],
+      "final_answer": "2 to the power of 10 is **1024**.",
+      "answer_match": true,
+      "steps_used": 1,
+      "tools_used": [],
+      "tools_expected": [
+        "calculator"
+      ],
+      "tools_match": false,
+      "latency_ms": 730,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "wrong_tools",
+      "run_id": "2e091199"
+    },
+    {
+      "id": "t9",
+      "question": "What is the speed of light?",
+      "expected_answer": "299792458",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "final_answer": "The speed of light in vacuum is **299,792,458 meters per second** (≈ 3.00 × 10⁸ m/s).",
+      "answer_match": true,
+      "steps_used": 1,
+      "tools_used": [],
+      "tools_expected": [
+        "search_notes"
+      ],
+      "tools_match": false,
+      "latency_ms": 400,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "wrong_tools",
+      "run_id": "e8bad17b"
+    },
+    {
+      "id": "t10",
+      "question": "What is 10 plus 20 times 3?",
+      "expected_answer": "70",
+      "expected_tools": [
+        "calculator"
+      ],
+      "final_answer": "10 + 20 × 3 = 10 + 60 = **70**",
+      "answer_match": true,
+      "steps_used": 1,
+      "tools_used": [],
+      "tools_expected": [
+        "calculator"
+      ],
+      "tools_match": false,
+      "latency_ms": 636,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "wrong_tools",
+      "run_id": "2ad28004"
+    },
+    {
+      "id": "t11",
+      "question": "What is the current date in UTC?",
+      "expected_answer": "UTC",
+      "expected_tools": [
+        "get_current_time"
+      ],
+      "final_answer": "The current date in UTC is **2026‑11‑05**.",
+      "answer_match": true,
+      "steps_used": 2,
+      "tools_used": [
+        "get_current_time"
+      ],
+      "tools_expected": [
+        "get_current_time"
+      ],
+      "tools_match": true,
+      "latency_ms": 2532,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "pass",
+      "run_id": "a2450ba7"
+    },
+    {
+      "id": "t12",
+      "question": "What is the largest planet in our solar system?",
+      "expected_answer": "Jupiter",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "final_answer": "The largest planet in our solar system is **Jupiter**.",
+      "answer_match": true,
+      "steps_used": 1,
+      "tools_used": [],
+      "tools_expected": [
+        "search_notes"
+      ],
+      "tools_match": false,
+      "latency_ms": 1888,
+      "stopped_reason": "final",
+      "passed": true,
+      "failure_category": "wrong_tools",
+      "run_id": "25eb0066"
+    }
+  ]
+}
