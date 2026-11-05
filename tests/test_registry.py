@@ -1,5 +1,7 @@
 """Tests for the tool registry. No network, no API key needed."""
 import agent.tools.calculator  # noqa: F401  (registers the calculator tool)
+import agent.tools.clock  # noqa: F401  (registers get_current_time)
+import agent.tools.notes  # noqa: F401  (registers search_notes)
 import agent.tools.registry as registry
 from agent.tools.registry import call, schemas, tool
 
@@ -72,3 +74,34 @@ def test_call_never_raises():
     assert isinstance(call("does_not_exist", {}), str)
     assert isinstance(call("calculator", "nope"), str)
     assert isinstance(call("calculator", {"expression": object()}), str)
+
+
+def test_clock_utc():
+    result = call("get_current_time", {"timezone": "UTC"})
+    assert result.startswith("20"), result  # e.g. "2026-11-05 ... UTC"
+
+
+def test_clock_invalid_timezone():
+    result = call("get_current_time", {"timezone": "Not/AZone"})
+    assert result.startswith("Error:"), result
+
+
+def test_notes_search():
+    result = call("search_notes", {"query": "Paris"})
+    assert "Paris" in result, result
+
+
+def test_notes_case_insensitive():
+    result = call("search_notes", {"query": "python"})
+    assert "Python" in result or "python" in result.lower(), result
+
+
+def test_notes_no_match():
+    result = call("search_notes", {"query": "zzzqwertynotfound"})
+    assert "No matching notes found" in result, result
+
+
+def test_notes_limits_to_five():
+    result = call("search_notes", {"query": "the"})
+    lines = [l for l in result.split("\n") if l.strip()]
+    assert len(lines) <= 5, result
