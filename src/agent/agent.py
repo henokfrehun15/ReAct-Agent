@@ -33,6 +33,11 @@ class AgentResult:
     steps_used: int
     stopped_reason: str  # "final" | "max_steps" | "repeated_call" | "error"
     run_id: str
+    tools_used: list[str] = None  # type: ignore[assignment]
+
+    def __post_init__(self):
+        if self.tools_used is None:
+            self.tools_used = []
 
 
 def _tools_description(tools: list[dict]) -> str:
@@ -69,6 +74,7 @@ def run_agent(
 
     last_call_key: Optional[tuple] = None
     repeat_count = 0
+    tools_used: list[str] = []
 
     for step in range(1, config.max_steps + 1):
         try:
@@ -81,6 +87,7 @@ def run_agent(
                 steps_used=step - 1,
                 stopped_reason="error",
                 run_id=run_id,
+                tools_used=tools_used,
             )
 
         assistant_msg: dict = {"role": "assistant", "content": reply["content"]}
@@ -99,6 +106,7 @@ def run_agent(
                 steps_used=step,
                 stopped_reason="final",
                 run_id=run_id,
+                tools_used=tools_used,
             )
 
         # Execute every tool call through the registry
@@ -125,9 +133,11 @@ def run_agent(
                     steps_used=step,
                     stopped_reason="repeated_call",
                     run_id=run_id,
+                    tools_used=tools_used,
                 )
 
             t0 = time.perf_counter()
+            tools_used.append(name)
             result = call(name, args_str)
             latency_ms = int((time.perf_counter() - t0) * 1000)
 
@@ -150,4 +160,5 @@ def run_agent(
         steps_used=config.max_steps,
         stopped_reason="max_steps",
         run_id=run_id,
+        tools_used=tools_used,
     )

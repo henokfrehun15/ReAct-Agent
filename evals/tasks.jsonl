@@ -1,0 +1,12 @@
+{"id": "t1", "question": "What is 25 * 4?", "expected_answer": "100", "expected_tools": ["calculator"]}
+{"id": "t2", "question": "What is 15% of 2340, plus 200?", "expected_answer": "551", "expected_tools": ["calculator"]}
+{"id": "t3", "question": "What time is it in UTC?", "expected_answer": "UTC", "expected_tools": ["get_current_time"]}
+{"id": "t4", "question": "What is the capital of France?", "expected_answer": "Paris", "expected_tools": ["search_notes"]}
+{"id": "t5", "question": "What is the current UTC time plus 100 seconds?", "expected_answer": "UTC", "expected_tools": ["get_current_time", "calculator"]}
+{"id": "t6", "question": "What is the capital of Japan?", "expected_answer": "Tokyo", "expected_tools": []}
+{"id": "t7", "question": "Who created Python?", "expected_answer": "Guido van Rossum", "expected_tools": ["search_notes"]}
+{"id": "t8", "question": "What is 2 to the power of 10?", "expected_answer": "1024", "expected_tools": ["calculator"]}
+{"id": "t9", "question": "What is the speed of light?", "expected_answer": "299792458", "expected_tools": ["search_notes"]}
+{"id": "t10", "question": "What is 10 plus 20 times 3?", "expected_answer": "70", "expected_tools": ["calculator"]}
+{"id": "t11", "question": "What is the current date in UTC?", "expected_answer": "UTC", "expected_tools": ["get_current_time"]}
+{"id": "t12", "question": "What is the largest planet in our solar system?", "expected_answer": "Jupiter", "expected_tools": ["search_notes"]}
