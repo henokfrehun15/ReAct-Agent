@@ -129,25 +129,57 @@ $env:PYTHONPATH="src"; python -m agent.cli "What is 15% of 2340, plus 200?"
 
 Output:
 ```
-15% of 2340 is 351. Adding 200 gives **551**.
-Steps used: 2
+15 % of 2340 is 351, and 351 + 200 equals **551**.
+Steps used: 1
 Stopped reason: final
-Log file: logs/run-f7d07774.jsonl
+Log file: logs/run-8b305198.jsonl
 ```
 
-With `--verbose`, each step is printed:
+Note: the model answered from internal knowledge (1 step, no tool calls). For time/date questions it does call `get_current_time`:
+
+```powershell
+$env:PYTHONPATH="src"; python -m agent.cli --verbose "What time is it in UTC?"
+```
 
 ```
 [user] What time is it in UTC?
+  [assistant] Let me check the current time for you.
   [tool_call] get_current_time({"timezone":"UTC"})
-  [tool_result] get_current_time -> 2026-11-05 13:40:14 UTC [22ms]
-  [assistant] It is **13:40 UTC** (2026-11-05 13:40:14).
-  [final] It is **13:40 UTC** (2026-11-05 13:40:14 UTC).
-It is **13:40 UTC** (2026-11-05 13:40:14 UTC).
+  [tool_result] get_current_time -> 2026-11-06 06:10:07 UTC [45ms]
+  [assistant] It's 2026-11-06 06:10 UTC.
+  [final] It's 2026-11-06 06:10 UTC.
+It's 2026-11-06 06:10 UTC.
 Steps used: 2
 Stopped reason: final
-Log file: logs/run-2c9c45ce.jsonl
+Log file: logs/run-f62cb30d.jsonl
 ```
+
+## Eval results
+
+Ran all 12 tasks from `evals/tasks.jsonl` against a real LLM (Groq `openai/gpt-oss-20b`).
+
+| Metric | Value |
+|--------|-------|
+| Accuracy | 12/12 (100%) |
+| Average steps | 1.25 |
+| Average latency | 946ms |
+
+| # | Question | Expected | Match | Steps | Tools used vs expected | Category |
+|---|----------|----------|-------|-------|------------------------|----------|
+| t1 | What is 25 * 4? | 100 | ✅ | 1 | – vs calculator | wrong_tools |
+| t2 | 15% of 2340, plus 200 | 551 | ✅ | 1 | – vs calculator | wrong_tools |
+| t3 | What time is it in UTC? | UTC | ✅ | 2 | get_current_time vs get_current_time | pass |
+| t4 | Capital of France | Paris | ✅ | 1 | – vs search_notes | wrong_tools |
+| t5 | UTC time + 100 seconds | UTC | ✅ | 2 | get_current_time vs get_current_time, calculator | wrong_tools |
+| t6 | Capital of Japan | Tokyo | ✅ | 1 | – vs – | pass |
+| t7 | Who created Python? | Guido van Rossum | ✅ | 1 | – vs search_notes | wrong_tools |
+| t8 | 2 to the power of 10 | 1024 | ✅ | 1 | – vs calculator | wrong_tools |
+| t9 | Speed of light | 299792458 | ✅ | 1 | – vs search_notes | wrong_tools |
+| t10 | 10 plus 20 times 3 | 70 | ✅ | 1 | – vs calculator | wrong_tools |
+| t11 | Current date in UTC | UTC | ✅ | 2 | get_current_time vs get_current_time | pass |
+| t12 | Largest planet | Jupiter | ✅ | 1 | – vs search_notes | wrong_tools |
+
+Full per-task data is saved to `evals/results.json` after each run.
 
 ## Project layout
 
@@ -178,11 +210,35 @@ tests/
 logs/             - gitignored, trace JSONL files
 ```
 
-## Limitations / what I learned / failures observed
+## Limitations and failures observed
 
-- **Tool use is optional:** Smart models often answer from internal knowledge instead of calling tools, even when tools are expected. Eval tasks designed for specific tools may report "wrong_tools" despite correct answers.
+### What went wrong
+
+**Answer accuracy was 100% (12/12), but tool usage matched expectations in only 3 of 12 tasks.** The other 9 tasks were categorized as `wrong_tools` — the final answer was correct, but the model didn't call the tool the task was designed to exercise.
+
+**Root cause:** the model (Groq `openai/gpt-oss-20b`) is smart enough to answer every eval question from internal knowledge, so it never bothers calling tools. The system prompt even tells it "Do not call tools if you can answer directly from your knowledge," which works against tool use here.
+
+### Real failure examples
+
+**t1 — "What is 25 * 4?" (expected `calculator`)**
+- Trace shows a single assistant turn: `[assistant] 25 × 4 = 100.` with no `tool_calls`.
+- The model computed it in its head and skipped the calculator entirely.
+- Log: `logs/run-df2802a6.jsonl`
+
+**t9 — "What is the speed of light?" (expected `search_notes`)**
+- Trace shows `[assistant] The speed of light in a vacuum is **299,792,458 meters per second**` with no `tool_calls`.
+- The model knew the constant from memory and didn't search the notes file.
+- Log: `logs/run-adbff6c2.jsonl`
+
+**t5 — "What is the current UTC time plus 100 seconds?" (expected `get_current_time` + `calculator`)**
+- The model called `get_current_time` correctly, but then did the "+ 100 seconds" arithmetic in its head instead of using `calculator`.
+- Tools used: `[get_current_time]`; expected: `[get_current_time, calculator]`.
+- Log: `logs/run-5250ed70.jsonl`
+
+### Other limitations
+
 - **Number formatting:** Models may write "1,024" or "299 792 458" with spaces/commas. Eval matching handles commas and whitespace, but unusual formats can still fail.
 - **Free-tier rate limits:** Gemini and Groq free tiers have low RPM. Eval script sleeps 2s between tasks; real-world use may need backoff.
 - **No tool schema validation at call time:** The registry validates argument types and required fields, but doesn't validate values (e.g., a negative number for a timezone-agnostic tool).
 - **Single-threaded:** Each run blocks on LLM responses. No async or parallel tool execution.
-- **System prompt is static:** The model may ignore instructions to use tools for simple questions. A stronger prompt or tool_choice=required could help.
+- **System prompt is static:** The model may ignore instructions to use tools for simple questions. A stronger prompt or `tool_choice=required` could help force tool use on tasks that require it.
