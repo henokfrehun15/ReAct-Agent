@@ -14,7 +14,7 @@ from agent.config import Config, load_config
 from agent.llm import LLMError, chat
 from agent.tools.registry import call, schemas
 
-SYSTEM_PROMPT = """You are a ReAct (reason + act) agent. You have access to tools.
+SYSTEM_PROMPT_PERMISSIVE = """You are a ReAct (reason + act) agent. You have access to tools.
 
 {tools_desc}
 
@@ -25,6 +25,24 @@ Instructions:
 - When you have enough information, give a concise final answer.
 - Do not call tools if you can answer directly from your knowledge.
 """
+
+SYSTEM_PROMPT_MANDATORY = """You are a ReAct (reason + act) agent. You have access to tools.
+
+{tools_desc}
+
+Instructions:
+- Think step by step before acting.
+- ALWAYS use the calculator for any arithmetic question.
+- ALWAYS use get_current_time for any time or date question.
+- ALWAYS use search_notes for any question about Project Nebula or notes.
+- If a tool returns an error, correct yourself and try again.
+- When you have enough information, give a concise final answer.
+"""
+
+SYSTEM_PROMPTS = {
+    "permissive": SYSTEM_PROMPT_PERMISSIVE,
+    "mandatory": SYSTEM_PROMPT_MANDATORY,
+}
 
 
 @dataclass
@@ -54,18 +72,22 @@ def run_agent(
     config: Config | None = None,
     trace_writer: Optional[Any] = None,
     client: Any = None,
+    system_prompt: str = "permissive",
 ) -> AgentResult:
     """Run the ReAct loop for a single question.
 
     Returns an AgentResult with final_answer, steps_used, stopped_reason, run_id.
+    ``system_prompt`` selects which system prompt template to use ("permissive" or "mandatory").
     """
     config = config or load_config()
     run_id = uuid.uuid4().hex[:8]
     tools = schemas()
     tools_desc = _tools_description(tools)
 
+    template = SYSTEM_PROMPTS.get(system_prompt, SYSTEM_PROMPT_PERMISSIVE)
+
     messages: list[dict] = [
-        {"role": "system", "content": SYSTEM_PROMPT.format(tools_desc=tools_desc)},
+        {"role": "system", "content": template.format(tools_desc=tools_desc)},
         {"role": "user", "content": question},
     ]
 

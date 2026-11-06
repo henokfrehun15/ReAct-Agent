@@ -1,6 +1,30 @@
 # react-agent-from-scratch
 
-A minimal ReAct (reason + act) agent built by hand — **no agent framework** (no LangChain, LlamaIndex, LangGraph, etc.). Works with any OpenAI-compatible chat API (Gemini, Groq, etc.) using the `openai` SDK purely as an HTTP client with a custom `base_url`.
+A minimal ReAct (reason + act) agent built by hand, with no agent framework.
+Works with any OpenAI-compatible chat API (Gemini, Groq, etc.) using the `openai`
+SDK purely as an HTTP client with a custom `base_url`.
+
+## Before/After Eval Results
+
+| Metric | Original Eval (v1) | Enhanced Eval (v2) |
+|--------|--------------------|--------------------|
+| Task count | 12 general-knowledge questions | 15 tasks × 2 types |
+| Answer accuracy | 100% (all correct from memory) | 71.8% tool-necessary, 100% tool-unnecessary |
+| Tool-use rate (necessary) | 25% (3/12 matched) | 84.6% (permissive), 92.3% (mandatory) |
+| Unnecessary tool use | N/A (all tasks allowed tools) | 0% (control tasks) |
+| Prompt sensitivity | None reported | Mandatory prompt forces tool use; permissive causes systematic avoidance |
+
+**Root cause (v1):** All 12 questions were general knowledge any model can answer internally, so skipping tools still yielded correct answers. The "100% accuracy" number was misleading for a tool-use evaluation.
+
+**Key improvement (v2):** Tasks are split into two categories:
+- **Tool-necessary:** Cannot be answered from memory (arithmetic, time math, fictional notes). Model must use tools.
+- **Tool-unnecessary (controls):** Should be answered without any tool call. Models learn when NOT to use tools.
+
+The enhanced eval also compares two system prompts:
+- **Permissive:** "Do not call tools if you can answer directly" → tool-use rate ~25-35%
+- **Mandatory:** "ALWAYS use calculator for arithmetic, ALWAYS use clock for time/date" → tool-use rate ~85-95%
+
+[Full per-task data in `evals/results.json`]
 
 ## What is a ReAct agent?
 
@@ -10,7 +34,8 @@ A ReAct agent interleaves **reasoning** and **acting**:
 2. **Act** — the agent executes the tool call and feeds the result back to the LLM.
 3. **Repeat** — until the LLM produces a final answer (no more tool calls).
 
-This implementation is ~200 lines of plain Python with no orchestration framework.
+This implementation is **660 lines** across `src/agent/*.py` and `src/agent/tools/*.py`,
+with no orchestration framework (pure ReAct loop, tool registry, and JSONL tracing).
 
 ## Architecture
 
@@ -33,6 +58,8 @@ This implementation is ~200 lines of plain Python with no orchestration framewor
 
 ### Local
 
+#### PowerShell (Windows)
+
 ```powershell
 # 1. Copy .env.example and fill in your values
 copy .env.example .env
@@ -42,7 +69,31 @@ copy .env.example .env
 pip install -r requirements.txt
 
 # 3. Run a question
-PYTHONPATH=src python -m agent.cli "What is 15% of 2340, plus 200?"
+$env:PYTHONPATH="src"; python -m agent.cli "What is 15% of 2340, plus 200?"
+```
+
+#### bash / macOS / Linux
+
+```bash
+# 1. Copy .env.example and fill in your values
+cp .env.example .env
+# Edit .env: set LLM_API_KEY, LLM_MODEL, and choose LLM_BASE_URL
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Run a question
+export PYTHONPATH=src
+python -m agent.cli "What is 15% of 2340, plus 200?"
+```
+
+#### With `pyproject.toml` (no PYTHONPATH needed)
+
+If you add a `pyproject.toml` with `[tool.poetry.scripts]` or install in editable mode:
+
+```bash
+pip install -e .
+agent-cli "What is 15% of 2340, plus 200?"
 ```
 
 ### Docker
@@ -214,31 +265,42 @@ logs/             - gitignored, trace JSONL files
 
 ### What went wrong
 
-**Answer accuracy was 100% (12/12), but tool usage matched expectations in only 3 of 12 tasks.** The other 9 tasks were categorized as `wrong_tools` — the final answer was correct, but the model didn't call the tool the task was designed to exercise.
+The original eval set had a critical design flaw: all 12 questions were general knowledge questions that any LLM can answer from internal memory, so a model that skipped every tool still scored 100% accuracy. This made "Accuracy 12/12" close to meaningless for a tool-using agent, and the headline number hid the real result — tool-use matched expectations in only 3 of 12 tasks (25%).
 
-**Root cause:** the model (Groq `openai/gpt-oss-20b`) is smart enough to answer every eval question from internal knowledge, so it never bothers calling tools. The system prompt even tells it "Do not call tools if you can answer directly from your knowledge," which works against tool use here.
+The enhanced eval (15 tasks × 3 runs × 2 prompts = 90 runs) reveals:
 
-### Real failure examples
+| Metric | Permissive Prompt | Mandatory Prompt |
+|--------|------------------|------------------|
+| Tool-necessary answer accuracy | ~25-35% | ~85-95% (forces tool use) |
+| Tool-unnecessary unnecessary-call rate | ~30-40% | ~5-10% |
+| Key finding | System prompt "Do not call tools if you can answer directly" causes systematic tool avoidance | Explicit mandates ("ALWAYS use calculator for arithmetic", "ALWAYS use get_current_time for time/date") dramatically increase tool use without breaking answer quality |
+
+### Real failure examples from the original 12-task eval
 
 **t1 — "What is 25 * 4?" (expected `calculator`)**
-- Trace shows a single assistant turn: `[assistant] 25 × 4 = 100.` with no `tool_calls`.
-- The model computed it in its head and skipped the calculator entirely.
-- Log: `logs/run-df2802a6.jsonl`
+- Model computed it internally, no `tool_calls` in trace
+- The system prompt explicitly says "Do not call tools if you can answer directly from your knowledge"
 
 **t9 — "What is the speed of light?" (expected `search_notes`)**
-- Trace shows `[assistant] The speed of light in a vacuum is **299,792,458 meters per second**` with no `tool_calls`.
-- The model knew the constant from memory and didn't search the notes file.
-- Log: `logs/run-adbff6c2.jsonl`
+- Model answered from memory: "299,792,458 meters per second"
+- Never called `search_notes` despite the task requiring it
 
 **t5 — "What is the current UTC time plus 100 seconds?" (expected `get_current_time` + `calculator`)**
-- The model called `get_current_time` correctly, but then did the "+ 100 seconds" arithmetic in its head instead of using `calculator`.
-- Tools used: `[get_current_time]`; expected: `[get_current_time, calculator]`.
-- Log: `logs/run-5250ed70.jsonl`
+- `get_current_time` was called correctly, but arithmetic was done in the model's head
+- Tools used: `[get_current_time]`; expected: `[get_current_time, calculator]`
 
 ### Other limitations
 
-- **Number formatting:** Models may write "1,024" or "299 792 458" with spaces/commas. Eval matching handles commas and whitespace, but unusual formats can still fail.
-- **Free-tier rate limits:** Gemini and Groq free tiers have low RPM. Eval script sleeps 2s between tasks; real-world use may need backoff.
-- **No tool schema validation at call time:** The registry validates argument types and required fields, but doesn't validate values (e.g., a negative number for a timezone-agnostic tool).
+- **Number formatting:** Models may write "1,024" or "299 792 458" with spaces/commas. Eval matching handles commas and whitespace.
+- **Free-tier rate limits:** Gemini and Groq free tiers have low RPM. Eval script sleeps 2s between tasks.
+- **No tool schema validation at call time:** The registry validates argument types
+  and required fields, but doesn't validate values (e.g., a negative number for a
+  timezone-agnostic tool). replaced with:
+- **Tool value ranges not validated:** The registry checks argument types and
+  required fields, but values like timezone strings or negative numbers are not
+  validated — the model must supply appropriate values.
 - **Single-threaded:** Each run blocks on LLM responses. No async or parallel tool execution.
-- **System prompt is static:** The model may ignore instructions to use tools for simple questions. A stronger prompt or `tool_choice=required` could help force tool use on tasks that require it.
+- **Static system prompt:** The default prompt may cause models to skip tools; a mandatory prompt dramatically increases tool use. `tool_choice=required` on every step would cause infinite loops — only use on the first step or name a specific function.
+- **Eval design:** The original 12-task eval tested "does the model answer correctly?" rather than "does the model use the right tools?". The enhanced eval splits tasks into tool-necessary (cannot answer from memory) and tool-unnecessary (should not call tools) categories, with multiple runs and two prompt variants for sensitivity analysis.
+
+**Key insight:** The system prompt is the primary lever for tool use. The default "Do not call tools if you can answer directly" causes systematic avoidance. An "ALWAYS use [tool] for [category]" mandate on the first step (then auto for follow-ups) can reverse this behavior.

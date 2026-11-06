@@ -1,265 +1,2124 @@
 {
-  "total": 12,
-  "passed": 12,
-  "accuracy": 1.0,
-  "avg_steps": 1.25,
-  "avg_latency_ms": 945.8333333333334,
+  "total_tasks": 15,
+  "runs_per_task": 3,
+  "prompts": [
+    "permissive",
+    "mandatory"
+  ],
+  "overall": {
+    "answer_accuracy": 0.7555555555555556,
+    "pass_rate": 0.6222222222222222
+  },
+  "tool_necessary": {
+    "answer_accuracy": 0.717948717948718,
+    "tool_use_rate": 0.8333333333333334,
+    "pass_rate": 0.5641025641025641
+  },
+  "tool_unnecessary": {
+    "answer_accuracy": 1.0,
+    "unnecessary_tool_use_rate": 0.0,
+    "pass_rate": 1.0
+  },
+  "prompt_comparison": {
+    "permissive": {
+      "overall_pass_rate": 0.5333333333333333,
+      "necessary_answer_ok": 0.717948717948718,
+      "necessary_tool_use": 0.7435897435897435,
+      "necessary_pass": 0.46153846153846156
+    },
+    "mandatory": {
+      "overall_pass_rate": 0.711111111111111,
+      "necessary_answer_ok": 0.717948717948718,
+      "necessary_tool_use": 0.9230769230769231,
+      "necessary_pass": 0.6666666666666666
+    }
+  },
   "tasks": [
     {
       "id": "t1",
-      "question": "What is 25 * 4?",
-      "expected_answer": "100",
+      "type": "tool_necessary",
+      "question": "What is 48217 * 9131?",
+      "expected_answer": "440269427",
       "expected_tools": [
         "calculator"
       ],
-      "final_answer": "25 × 4 = 100",
-      "answer_match": true,
-      "steps_used": 1,
-      "tools_used": [],
-      "tools_expected": [
-        "calculator"
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "\\(48,217 \\times 9,131 = 440,269,427\\).",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 2431,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "305fe5c0"
+        },
+        {
+          "run": 2,
+          "final_answer": "48217 × 9131 = 440,269,427",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 911,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "5dbf3cb1"
+        },
+        {
+          "run": 3,
+          "final_answer": "48217 × 9131 = 440,269,427",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 831,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "81ec03b3"
+        }
       ],
-      "tools_match": false,
-      "latency_ms": 1999,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "wrong_tools",
-      "run_id": "df2802a6"
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 1391.0,
+      "tool_use_rate": 1.0
     },
     {
       "id": "t2",
+      "type": "tool_necessary",
       "question": "What is 15% of 2340, plus 200?",
       "expected_answer": "551",
       "expected_tools": [
         "calculator"
       ],
-      "final_answer": "15 % of 2340 is 351, and 351 + 200 equals **551**.",
-      "answer_match": true,
-      "steps_used": 1,
-      "tools_used": [],
-      "tools_expected": [
-        "calculator"
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "15% of 2340 is 351, and adding 200 gives **551**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 522,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "ff54adfe"
+        },
+        {
+          "run": 2,
+          "final_answer": "15 % of 2340 is 351, and adding 200 gives **551**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 426,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "905364bb"
+        },
+        {
+          "run": 3,
+          "final_answer": "15 % of 2340 is 351, and adding 200 gives **551**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 756,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "e48898f7"
+        }
       ],
-      "tools_match": false,
-      "latency_ms": 1074,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "wrong_tools",
-      "run_id": "8b305198"
+      "answer_ok_rate": 1.0,
+      "pass_rate": 0.3333333333333333,
+      "avg_steps": 1.3333333333333333,
+      "avg_latency_ms": 568.0,
+      "tool_use_rate": 0.3333333333333333
     },
     {
       "id": "t3",
+      "type": "tool_necessary",
       "question": "What time is it in UTC?",
-      "expected_answer": "UTC",
+      "expected_answer": null,
       "expected_tools": [
         "get_current_time"
       ],
-      "final_answer": "It’s 2026‑11‑06 06:10 UTC.",
-      "answer_match": true,
-      "steps_used": 2,
-      "tools_used": [
-        "get_current_time"
+      "check": "time_within_1_minute_utc",
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "It is 06:44 UTC on 2026‑11‑06.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 735,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "57cbf47f"
+        },
+        {
+          "run": 2,
+          "final_answer": "It is **2026‑11‑06 06:44:49 UTC**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 1093,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "93b5618c"
+        },
+        {
+          "run": 3,
+          "final_answer": "It’s currently **2026‑11‑06 06:44:52 UTC**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 605,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "a0e34889"
+        }
       ],
-      "tools_expected": [
-        "get_current_time"
-      ],
-      "tools_match": true,
-      "latency_ms": 1510,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "pass",
-      "run_id": "f62cb30d"
+      "answer_ok_rate": 0.0,
+      "pass_rate": 0.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 811.0,
+      "tool_use_rate": 1.0
     },
     {
       "id": "t4",
-      "question": "What is the capital of France?",
-      "expected_answer": "Paris",
+      "type": "tool_necessary",
+      "question": "What room is the Friday standup in?",
+      "expected_answer": "Conference Room B",
       "expected_tools": [
         "search_notes"
       ],
-      "final_answer": "The capital of France is Paris.",
-      "answer_match": true,
-      "steps_used": 1,
-      "tools_used": [],
-      "tools_expected": [
-        "search_notes"
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The Friday stand‑up is held in **Conference Room B**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 818,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "ec8d0320"
+        },
+        {
+          "run": 2,
+          "final_answer": "The Friday standup is held in **Conference Room B**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 742,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "eb681cc9"
+        },
+        {
+          "run": 3,
+          "final_answer": "The Friday standup is held in **Conference Room B**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 670,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "8cfea683"
+        }
       ],
-      "tools_match": false,
-      "latency_ms": 391,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "wrong_tools",
-      "run_id": "ac4601b5"
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 743.3333333333334,
+      "tool_use_rate": 1.0
     },
     {
       "id": "t5",
+      "type": "tool_necessary",
       "question": "What is the current UTC time plus 100 seconds?",
-      "expected_answer": "UTC",
+      "expected_answer": null,
       "expected_tools": [
         "get_current_time",
         "calculator"
       ],
-      "final_answer": "The current UTC time is **2026‑11‑06 06:10:07**.  \nAdding 100 seconds (1 minute 40 seconds) gives **2026‑11‑06 06:11:47 UTC**.",
-      "answer_match": true,
-      "steps_used": 2,
-      "tools_used": [
-        "get_current_time"
+      "check": "time_math_within_1_minute_utc",
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The current UTC time plus 100 seconds is:\n\n**2026‑11‑06 06:46:39 UTC**",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time",
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 1204,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "ac2cf6e7"
+        },
+        {
+          "run": 2,
+          "final_answer": "The current UTC time is **2026‑11‑06 06:45:02 UTC**.  \nAdding 100 seconds (1 minute 40 seconds) gives:\n\n**2026‑11‑06 06:46:42 UTC**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time",
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 826,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "3a774ae0"
+        },
+        {
+          "run": 3,
+          "final_answer": "The current UTC time is **2026‑11‑06 06:45:05**.  \nAdding 100 seconds gives **2026‑11‑06 06:46:45 UTC**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time",
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 929,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "62a3ae3d"
+        }
       ],
-      "tools_expected": [
-        "get_current_time",
-        "calculator"
-      ],
-      "tools_match": false,
-      "latency_ms": 1677,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "wrong_tools",
-      "run_id": "5250ed70"
+      "answer_ok_rate": 0.0,
+      "pass_rate": 0.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 986.3333333333334,
+      "tool_use_rate": 1.0
     },
     {
       "id": "t6",
+      "type": "tool_unnecessary",
       "question": "What is the capital of Japan?",
       "expected_answer": "Tokyo",
       "expected_tools": [],
-      "final_answer": "The capital of Japan is **Tokyo**.",
-      "answer_match": true,
-      "steps_used": 1,
-      "tools_used": [],
-      "tools_expected": [],
-      "tools_match": true,
-      "latency_ms": 294,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "pass",
-      "run_id": "306415e3"
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The capital of Japan is Tokyo.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 310,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "fa89a000"
+        },
+        {
+          "run": 2,
+          "final_answer": "The capital of Japan is **Tokyo**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 290,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "95d82707"
+        },
+        {
+          "run": 3,
+          "final_answer": "The capital of Japan is **Tokyo**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 442,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "5c32dcd9"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 1.0,
+      "avg_latency_ms": 347.3333333333333,
+      "tool_use_rate": 0.0
     },
     {
       "id": "t7",
-      "question": "Who created Python?",
-      "expected_answer": "Guido van Rossum",
+      "type": "tool_necessary",
+      "question": "Who is the Nebula on-call engineer for Q4?",
+      "expected_answer": "Samira Patel",
       "expected_tools": [
         "search_notes"
       ],
-      "final_answer": "Python was created by **Guido van Rossum**.",
-      "answer_match": true,
-      "steps_used": 1,
-      "tools_used": [],
-      "tools_expected": [
-        "search_notes"
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The Nebula on‑call engineer for Q4 is **Samira Patel**.",
+          "answer_match": true,
+          "steps_used": 3,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 1489,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "244f6f38"
+        },
+        {
+          "run": 2,
+          "final_answer": "The Nebula on‑call engineer for Q4 is **Samira Patel**.",
+          "answer_match": true,
+          "steps_used": 3,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 1354,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "a76694b4"
+        },
+        {
+          "run": 3,
+          "final_answer": "The Nebula on‑call engineer for Q4 is **Samira Patel**.",
+          "answer_match": true,
+          "steps_used": 3,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 1346,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "170fb9cc"
+        }
       ],
-      "tools_match": false,
-      "latency_ms": 382,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "wrong_tools",
-      "run_id": "5fe84985"
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 3.0,
+      "avg_latency_ms": 1396.3333333333333,
+      "tool_use_rate": 1.0
     },
     {
       "id": "t8",
+      "type": "tool_necessary",
       "question": "What is 2 to the power of 10?",
       "expected_answer": "1024",
       "expected_tools": [
         "calculator"
       ],
-      "final_answer": "2 to the power of 10 is **1024**.",
-      "answer_match": true,
-      "steps_used": 1,
-      "tools_used": [],
-      "tools_expected": [
-        "calculator"
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "2 to the power of 10 equals **1,024**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 1481,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "a2ca77e5"
+        },
+        {
+          "run": 2,
+          "final_answer": "2 to the power of 10 equals **1024**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 1793,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "fe06e85e"
+        },
+        {
+          "run": 3,
+          "final_answer": "2 to the power of 10 is 1,024.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 557,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "11054e69"
+        }
       ],
-      "tools_match": false,
-      "latency_ms": 574,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "wrong_tools",
-      "run_id": "977a2a40"
+      "answer_ok_rate": 1.0,
+      "pass_rate": 0.3333333333333333,
+      "avg_steps": 1.3333333333333333,
+      "avg_latency_ms": 1277.0,
+      "tool_use_rate": 0.3333333333333333
     },
     {
       "id": "t9",
-      "question": "What is the speed of light?",
-      "expected_answer": "299792458",
+      "type": "tool_necessary",
+      "question": "What is the Nebula server room access code?",
+      "expected_answer": "7742-alpha",
       "expected_tools": [
         "search_notes"
       ],
-      "final_answer": "The speed of light in a vacuum is exactly \\(299,792,458\\) metres per second (≈ \\(3.00 \\times 10^8\\) m/s).",
-      "answer_match": true,
-      "steps_used": 1,
-      "tools_used": [],
-      "tools_expected": [
-        "search_notes"
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The Nebula server room access code is **7742‑alpha**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 4089,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "26e8ca0e"
+        },
+        {
+          "run": 2,
+          "final_answer": "The Nebula server room access code is **7742‑alpha**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 5048,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "691e5e1c"
+        },
+        {
+          "run": 3,
+          "final_answer": "The Nebula server room access code is **7742-alpha**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 1682,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "ee91cb5b"
+        }
       ],
-      "tools_match": false,
-      "latency_ms": 645,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "wrong_tools",
-      "run_id": "adbff6c2"
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 3606.3333333333335,
+      "tool_use_rate": 1.0
     },
     {
       "id": "t10",
+      "type": "tool_necessary",
       "question": "What is 10 plus 20 times 3?",
       "expected_answer": "70",
       "expected_tools": [
         "calculator"
       ],
-      "final_answer": "70",
-      "answer_match": true,
-      "steps_used": 1,
-      "tools_used": [],
-      "tools_expected": [
-        "calculator"
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "10 + (20 × 3) = 10 + 60 = **70**",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 2549,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "7efe24e6"
+        },
+        {
+          "run": 2,
+          "final_answer": "10 plus 20 times 3 equals **70**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 1514,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "3cb19bd6"
+        },
+        {
+          "run": 3,
+          "final_answer": "10 + (20 × 3) = 10 + 60 = **70**",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 840,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "3c4edd49"
+        }
       ],
-      "tools_match": false,
-      "latency_ms": 506,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "wrong_tools",
-      "run_id": "8307962a"
+      "answer_ok_rate": 1.0,
+      "pass_rate": 0.0,
+      "avg_steps": 1.0,
+      "avg_latency_ms": 1634.3333333333333,
+      "tool_use_rate": 0.0
     },
     {
       "id": "t11",
-      "question": "What is the current date in UTC?",
-      "expected_answer": "UTC",
+      "type": "tool_necessary",
+      "question": "What is the date 45 days from now in UTC?",
+      "expected_answer": null,
       "expected_tools": [
         "get_current_time"
       ],
-      "final_answer": "The current date in UTC is **November 6, 2026**.",
-      "answer_match": true,
-      "steps_used": 2,
-      "tools_used": [
-        "get_current_time"
+      "check": "date_45_days_utc",
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The date that falls 45 days from today (2026‑11‑06 UTC) is **2026‑12‑21**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 8888,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "ab43aacc"
+        },
+        {
+          "run": 2,
+          "final_answer": "45 days from today (2026‑11‑06 UTC) is **2026‑12‑21 UTC**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 5780,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "1942add7"
+        },
+        {
+          "run": 3,
+          "final_answer": "45 days from today (2026‑11‑06) is **2026‑12‑21 UTC**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 2016,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "2eef89d9"
+        }
       ],
-      "tools_expected": [
-        "get_current_time"
-      ],
-      "tools_match": true,
-      "latency_ms": 761,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "pass",
-      "run_id": "b87b1155"
+      "answer_ok_rate": 0.0,
+      "pass_rate": 0.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 5561.333333333333,
+      "tool_use_rate": 1.0
     },
     {
       "id": "t12",
-      "question": "What is the largest planet in our solar system?",
-      "expected_answer": "Jupiter",
+      "type": "tool_unnecessary",
+      "question": "Say hello.",
+      "expected_answer": "hello",
+      "expected_tools": [],
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "Hello!",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 6348,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "d6b51c0c"
+        },
+        {
+          "run": 2,
+          "final_answer": "Hello!",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 302,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "1e5fe76f"
+        },
+        {
+          "run": 3,
+          "final_answer": "Hello!",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 404,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "b145b9fb"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 1.0,
+      "avg_latency_ms": 2351.3333333333335,
+      "tool_use_rate": 0.0
+    },
+    {
+      "id": "t13",
+      "type": "tool_necessary",
+      "question": "Which database hosts Project Nebula?",
+      "expected_answer": "db-nebula-03.internal",
       "expected_tools": [
         "search_notes"
       ],
-      "final_answer": "The largest planet in our solar system is **Jupiter**.",
-      "answer_match": true,
-      "steps_used": 1,
-      "tools_used": [],
-      "tools_expected": [
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "I’m not finding any record in our notes that specifies which database hosts Project Nebula. If you have any other context or a different source, let me know and I’ll try again!",
+          "answer_match": false,
+          "steps_used": 4,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 6757,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "0c1eddbd"
+        },
+        {
+          "run": 2,
+          "final_answer": "Project Nebula is hosted on the database server **db‑nebula‑03.internal**.",
+          "answer_match": false,
+          "steps_used": 3,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 7522,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "c36452ab"
+        },
+        {
+          "run": 3,
+          "final_answer": "The database that hosts Project Nebula is **`db-nebula-03.internal`**.",
+          "answer_match": true,
+          "steps_used": 4,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 7732,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "664f8416"
+        }
+      ],
+      "answer_ok_rate": 0.3333333333333333,
+      "pass_rate": 0.3333333333333333,
+      "avg_steps": 3.6666666666666665,
+      "avg_latency_ms": 7337.0,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t14",
+      "type": "tool_necessary",
+      "question": "When did Project Nebula launch?",
+      "expected_answer": "March 14, 2024",
+      "expected_tools": [
         "search_notes"
       ],
-      "tools_match": false,
-      "latency_ms": 1537,
-      "stopped_reason": "final",
-      "passed": true,
-      "failure_category": "wrong_tools",
-      "run_id": "298cdbeb"
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "Project Nebula launched on **March 14, 2024**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 4894,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "7b2f0579"
+        },
+        {
+          "run": 2,
+          "final_answer": "Project Nebula was launched on **March 14, 2024**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 3974,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "58cdbcaf"
+        },
+        {
+          "run": 3,
+          "final_answer": "Project Nebula was launched on **March 14, 2024**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 982,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "dd489c41"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 3283.3333333333335,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t15",
+      "type": "tool_necessary",
+      "question": "What is the speed of light in meters per second?",
+      "expected_answer": "299792458",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "check": null,
+      "prompt": "permissive",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The speed of light in a vacuum is exactly **299,792,458 meters per second**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": false,
+          "latency_ms": 4776,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "dc6f05eb"
+        },
+        {
+          "run": 2,
+          "final_answer": "The speed of light in a vacuum is **299,792,458 m/s**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": false,
+          "latency_ms": 2912,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "ebb7bc33"
+        },
+        {
+          "run": 3,
+          "final_answer": "The speed of light in a vacuum is exactly **299,792,458 meters per second**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": false,
+          "latency_ms": 359,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "927f2386"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 0.0,
+      "avg_steps": 1.0,
+      "avg_latency_ms": 2682.3333333333335,
+      "tool_use_rate": 0.0
+    },
+    {
+      "id": "t1",
+      "type": "tool_necessary",
+      "question": "What is 48217 * 9131?",
+      "expected_answer": "440269427",
+      "expected_tools": [
+        "calculator"
+      ],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The product of 48,217 and 9,131 is **440,269,427**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 3415,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "df84717f"
+        },
+        {
+          "run": 2,
+          "final_answer": "48217 × 9131 = **440,269,427**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 4757,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "e6318702"
+        },
+        {
+          "run": 3,
+          "final_answer": "The product of 48,217 and 9,131 is **440,269,427**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 874,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "b7a0bbcd"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 3015.3333333333335,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t2",
+      "type": "tool_necessary",
+      "question": "What is 15% of 2340, plus 200?",
+      "expected_answer": "551",
+      "expected_tools": [
+        "calculator"
+      ],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "551",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 4193,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "bc3aacc8"
+        },
+        {
+          "run": 2,
+          "final_answer": "551",
+          "answer_match": true,
+          "steps_used": 3,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 8036,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "c43f2da3"
+        },
+        {
+          "run": 3,
+          "final_answer": "15 % of 2340 is 351. Adding 200 gives **551**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 660,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "132cd97d"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.3333333333333335,
+      "avg_latency_ms": 4296.333333333333,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t3",
+      "type": "tool_necessary",
+      "question": "What time is it in UTC?",
+      "expected_answer": null,
+      "expected_tools": [
+        "get_current_time"
+      ],
+      "check": "time_within_1_minute_utc",
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The current time in UTC is **2026‑11‑06 06:47:46**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 3033,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "eb4c7731"
+        },
+        {
+          "run": 2,
+          "final_answer": "It is currently **2026‑11‑06 06:47:51 UTC**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 2853,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "2d0dc4a3"
+        },
+        {
+          "run": 3,
+          "final_answer": "The current UTC time is **2026‑11‑06 06:47:58**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 3018,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "e1e8ae53"
+        }
+      ],
+      "answer_ok_rate": 0.0,
+      "pass_rate": 0.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 2968.0,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t4",
+      "type": "tool_necessary",
+      "question": "What room is the Friday standup in?",
+      "expected_answer": "Conference Room B",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The Friday stand‑up takes place in **Conference Room B**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 5006,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "58213e17"
+        },
+        {
+          "run": 2,
+          "final_answer": "The Friday standup is in **Conference Room B**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 4577,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "04feb939"
+        },
+        {
+          "run": 3,
+          "final_answer": "The Friday standup is held in Conference Room B.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 846,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "568e933b"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 3476.3333333333335,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t5",
+      "type": "tool_necessary",
+      "question": "What is the current UTC time plus 100 seconds?",
+      "expected_answer": null,
+      "expected_tools": [
+        "get_current_time",
+        "calculator"
+      ],
+      "check": "time_math_within_1_minute_utc",
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The time is **2026‑11‑06 06:49:57 UTC**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time",
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 6657,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "d72b2a42"
+        },
+        {
+          "run": 2,
+          "final_answer": "The current UTC time plus 100 seconds is **2026‑11‑06 06:50:03 UTC**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time",
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 7212,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "cf48a777"
+        },
+        {
+          "run": 3,
+          "final_answer": "The current UTC time is 2026‑11‑06 06:48:35.  \nAdding 100 seconds (1 minute 40 seconds) gives:\n\n**2026‑11‑06 06:50:15 UTC**",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time",
+            "calculator"
+          ],
+          "tools_match": false,
+          "latency_ms": 9836,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "d6eea218"
+        }
+      ],
+      "answer_ok_rate": 0.0,
+      "pass_rate": 0.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 7901.666666666667,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t6",
+      "type": "tool_unnecessary",
+      "question": "What is the capital of Japan?",
+      "expected_answer": "Tokyo",
+      "expected_tools": [],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The capital of Japan is **Tokyo**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 433,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "116626e3"
+        },
+        {
+          "run": 2,
+          "final_answer": "The capital of Japan is **Tokyo**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 1599,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "8eea6a05"
+        },
+        {
+          "run": 3,
+          "final_answer": "Tokyo.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 561,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "47475252"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 1.0,
+      "avg_latency_ms": 864.3333333333334,
+      "tool_use_rate": 0.0
+    },
+    {
+      "id": "t7",
+      "type": "tool_necessary",
+      "question": "Who is the Nebula on-call engineer for Q4?",
+      "expected_answer": "Samira Patel",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The Nebula on‑call engineer for Q4 is Samira Patel.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 4197,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "c9545f35"
+        },
+        {
+          "run": 2,
+          "final_answer": "The Nebula on‑call engineer for Q4 is **Samira Patel**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 3999,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "bcb53f7c"
+        },
+        {
+          "run": 3,
+          "final_answer": "The Nebula on‑call engineer for Q4 is **Samira Patel**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 1237,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "48037f42"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 3144.3333333333335,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t8",
+      "type": "tool_necessary",
+      "question": "What is 2 to the power of 10?",
+      "expected_answer": "1024",
+      "expected_tools": [
+        "calculator"
+      ],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "2 to the power of 10 is **1024**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 2928,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "a14c53d9"
+        },
+        {
+          "run": 2,
+          "final_answer": "2 to the power of 10 is **1024**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 3157,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "7f571f02"
+        },
+        {
+          "run": 3,
+          "final_answer": "2 to the power of 10 equals **1024**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 4035,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "afc291fe"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 3373.3333333333335,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t9",
+      "type": "tool_necessary",
+      "question": "What is the Nebula server room access code?",
+      "expected_answer": "7742-alpha",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The Nebula server room access code is **7742-alpha**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 5093,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "3a992a00"
+        },
+        {
+          "run": 2,
+          "final_answer": "The Nebula server room access code is **7742‑alpha**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 3380,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "e6364443"
+        },
+        {
+          "run": 3,
+          "final_answer": "The Nebula server room access code is **7742‑alpha**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 3379,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "d2d92c47"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 3950.6666666666665,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t10",
+      "type": "tool_necessary",
+      "question": "What is 10 plus 20 times 3?",
+      "expected_answer": "70",
+      "expected_tools": [
+        "calculator"
+      ],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "70",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 5250,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "b1ae3d9e"
+        },
+        {
+          "run": 2,
+          "final_answer": "10 + 20 × 3 = 70.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 3171,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "4cb54dae"
+        },
+        {
+          "run": 3,
+          "final_answer": "10 + 20 × 3 = **70**",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "calculator"
+          ],
+          "tools_expected": [
+            "calculator"
+          ],
+          "tools_match": true,
+          "latency_ms": 3819,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "262bedc8"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 4080.0,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t11",
+      "type": "tool_necessary",
+      "question": "What is the date 45 days from now in UTC?",
+      "expected_answer": null,
+      "expected_tools": [
+        "get_current_time"
+      ],
+      "check": "date_45_days_utc",
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "45 days from now (2026‑11‑06) lands on **2026‑12‑21** in the UTC time zone.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 5738,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "ac02a0d2"
+        },
+        {
+          "run": 2,
+          "final_answer": "The date 45 days from now (2026‑11‑06) in UTC is **2026‑12‑21**.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 2951,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "6789e599"
+        },
+        {
+          "run": 3,
+          "final_answer": "The date 45 days from now (2026‑11‑06) is **2026‑12‑21** in UTC.",
+          "answer_match": false,
+          "steps_used": 2,
+          "tools_used": [
+            "get_current_time"
+          ],
+          "tools_expected": [
+            "get_current_time"
+          ],
+          "tools_match": true,
+          "latency_ms": 3268,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "b18c1788"
+        }
+      ],
+      "answer_ok_rate": 0.0,
+      "pass_rate": 0.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 3985.6666666666665,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t12",
+      "type": "tool_unnecessary",
+      "question": "Say hello.",
+      "expected_answer": "hello",
+      "expected_tools": [],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "Hello! How can I help you today?",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 3144,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "d6016374"
+        },
+        {
+          "run": 2,
+          "final_answer": "Hello!",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 420,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "319c5a7c"
+        },
+        {
+          "run": 3,
+          "final_answer": "Hello!",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [],
+          "tools_match": true,
+          "latency_ms": 466,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "e4f3840c"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 1.0,
+      "avg_latency_ms": 1343.3333333333333,
+      "tool_use_rate": 0.0
+    },
+    {
+      "id": "t13",
+      "type": "tool_necessary",
+      "question": "Which database hosts Project Nebula?",
+      "expected_answer": "db-nebula-03.internal",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "Project Nebula is hosted on the **`db-nebula-03.internal`** database server.",
+          "answer_match": true,
+          "steps_used": 3,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 7493,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "c59c0f69"
+        },
+        {
+          "run": 2,
+          "final_answer": "Project Nebula is hosted on the **Nebula database**, which resides on the server **db‑nebula‑03.internal**.",
+          "answer_match": false,
+          "steps_used": 4,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 10020,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "ac687428"
+        },
+        {
+          "run": 3,
+          "final_answer": "Project Nebula’s database is hosted on **`db-nebula-03.internal`**.",
+          "answer_match": true,
+          "steps_used": 4,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 8304,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "e9a55d7c"
+        }
+      ],
+      "answer_ok_rate": 0.6666666666666666,
+      "pass_rate": 0.6666666666666666,
+      "avg_steps": 3.6666666666666665,
+      "avg_latency_ms": 8605.666666666666,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t14",
+      "type": "tool_necessary",
+      "question": "When did Project Nebula launch?",
+      "expected_answer": "March 14, 2024",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "Project Nebula was launched on **March 14, 2024**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 5723,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "e82c0342"
+        },
+        {
+          "run": 2,
+          "final_answer": "Project Nebula was launched on **March 14, 2024**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 3869,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "e701d09b"
+        },
+        {
+          "run": 3,
+          "final_answer": "Project Nebula was launched on **March 14, 2024**.",
+          "answer_match": true,
+          "steps_used": 2,
+          "tools_used": [
+            "search_notes"
+          ],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": true,
+          "latency_ms": 3157,
+          "stopped_reason": "final",
+          "passed": true,
+          "failure_category": "pass",
+          "run_id": "4e650a6e"
+        }
+      ],
+      "answer_ok_rate": 1.0,
+      "pass_rate": 1.0,
+      "avg_steps": 2.0,
+      "avg_latency_ms": 4249.666666666667,
+      "tool_use_rate": 1.0
+    },
+    {
+      "id": "t15",
+      "type": "tool_necessary",
+      "question": "What is the speed of light in meters per second?",
+      "expected_answer": "299792458",
+      "expected_tools": [
+        "search_notes"
+      ],
+      "check": null,
+      "prompt": "mandatory",
+      "runs": [
+        {
+          "run": 1,
+          "final_answer": "The speed of light in a vacuum is approximately **299,792,458 meters per second**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": false,
+          "latency_ms": 2876,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "747232ce"
+        },
+        {
+          "run": 2,
+          "final_answer": "The speed of light in a vacuum is \\(299{,}792{,}458\\) meters per second.",
+          "answer_match": false,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": false,
+          "latency_ms": 790,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "wrong_answer",
+          "run_id": "d674ca3d"
+        },
+        {
+          "run": 3,
+          "final_answer": "The speed of light in a vacuum is **299,792,458 meters per second**.",
+          "answer_match": true,
+          "steps_used": 1,
+          "tools_used": [],
+          "tools_expected": [
+            "search_notes"
+          ],
+          "tools_match": false,
+          "latency_ms": 657,
+          "stopped_reason": "final",
+          "passed": false,
+          "failure_category": "missing_tool",
+          "run_id": "664c83c1"
+        }
+      ],
+      "answer_ok_rate": 0.6666666666666666,
+      "pass_rate": 0.0,
+      "avg_steps": 1.0,
+      "avg_latency_ms": 1441.0,
+      "tool_use_rate": 0.0
     }
   ]
 }

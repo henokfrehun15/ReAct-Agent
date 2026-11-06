@@ -1,12 +1,15 @@
-{"id": "t1", "question": "What is 25 * 4?", "expected_answer": "100", "expected_tools": ["calculator"]}
-{"id": "t2", "question": "What is 15% of 2340, plus 200?", "expected_answer": "551", "expected_tools": ["calculator"]}
-{"id": "t3", "question": "What time is it in UTC?", "expected_answer": "UTC", "expected_tools": ["get_current_time"]}
-{"id": "t4", "question": "What is the capital of France?", "expected_answer": "Paris", "expected_tools": ["search_notes"]}
-{"id": "t5", "question": "What is the current UTC time plus 100 seconds?", "expected_answer": "UTC", "expected_tools": ["get_current_time", "calculator"]}
-{"id": "t6", "question": "What is the capital of Japan?", "expected_answer": "Tokyo", "expected_tools": []}
-{"id": "t7", "question": "Who created Python?", "expected_answer": "Guido van Rossum", "expected_tools": ["search_notes"]}
-{"id": "t8", "question": "What is 2 to the power of 10?", "expected_answer": "1024", "expected_tools": ["calculator"]}
-{"id": "t9", "question": "What is the speed of light?", "expected_answer": "299792458", "expected_tools": ["search_notes"]}
-{"id": "t10", "question": "What is 10 plus 20 times 3?", "expected_answer": "70", "expected_tools": ["calculator"]}
-{"id": "t11", "question": "What is the current date in UTC?", "expected_answer": "UTC", "expected_tools": ["get_current_time"]}
-{"id": "t12", "question": "What is the largest planet in our solar system?", "expected_answer": "Jupiter", "expected_tools": ["search_notes"]}
+{"id": "t1", "type": "tool_necessary", "question": "What is 48217 * 9131?", "expected_answer": "440269427", "expected_tools": ["calculator"]}
+{"id": "t2", "type": "tool_necessary", "question": "What is 15% of 2340, plus 200?", "expected_answer": "551", "expected_tools": ["calculator"]}
+{"id": "t3", "type": "tool_necessary", "question": "What time is it in UTC?", "expected_answer": null, "expected_tools": ["get_current_time"], "check": "time_within_1_minute_utc"}
+{"id": "t4", "type": "tool_necessary", "question": "What room is the Friday standup in?", "expected_answer": "Conference Room B", "expected_tools": ["search_notes"]}
+{"id": "t5", "type": "tool_necessary", "question": "What is the current UTC time plus 100 seconds?", "expected_answer": null, "expected_tools": ["get_current_time", "calculator"], "check": "time_math_within_1_minute_utc"}
+{"id": "t6", "type": "tool_unnecessary", "question": "What is the capital of Japan?", "expected_answer": "Tokyo", "expected_tools": []}
+{"id": "t7", "type": "tool_necessary", "question": "Who is the Nebula on-call engineer for Q4?", "expected_answer": "Samira Patel", "expected_tools": ["search_notes"]}
+{"id": "t8", "type": "tool_necessary", "question": "What is 2 to the power of 10?", "expected_answer": "1024", "expected_tools": ["calculator"]}
+{"id": "t9", "type": "tool_necessary", "question": "What is the Nebula server room access code?", "expected_answer": "7742-alpha", "expected_tools": ["search_notes"]}
+{"id": "t10", "type": "tool_necessary", "question": "What is 10 plus 20 times 3?", "expected_answer": "70", "expected_tools": ["calculator"]}
+{"id": "t11", "type": "tool_necessary", "question": "What is the date 45 days from now in UTC?", "expected_answer": null, "expected_tools": ["get_current_time"], "check": "date_45_days_utc"}
+{"id": "t12", "type": "tool_unnecessary", "question": "Say hello.", "expected_answer": "hello", "expected_tools": []}
+{"id": "t13", "type": "tool_necessary", "question": "Which database hosts Project Nebula?", "expected_answer": "db-nebula-03.internal", "expected_tools": ["search_notes"]}
+{"id": "t14", "type": "tool_necessary", "question": "When did Project Nebula launch?", "expected_answer": "March 14, 2024", "expected_tools": ["search_notes"]}
+{"id": "t15", "type": "tool_necessary", "question": "What is the speed of light in meters per second?", "expected_answer": "299792458", "expected_tools": ["search_notes"]}

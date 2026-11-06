@@ -5,3 +5,10 @@ The largest planet in our solar system is Jupiter.
 Water boils at 100 degrees Celsius at sea level.
 The Great Wall of China is over 21000 kilometers long.
 The first programmable computer was built in the 1940s.
+
+--- Project Nebula internal notes (fictional) ---
+The Friday standup is in Conference Room B.
+The Nebula server room access code is 7742-alpha.
+Project Nebula launched on March 14, 2024.
+The Nebula database is hosted on db-nebula-03.internal.
+Nebula on-call engineer for Q4 is Samira Patel.
